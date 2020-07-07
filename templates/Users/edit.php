@@ -23,7 +23,7 @@
                 <legend><?= __('Edit User') ?></legend>
                 <?php
                     echo $this->Form->control('name');
-                    echo $this->Form->control('user_name');
+                    echo $this->Form->control('username');
                     echo $this->Form->control('password');
                     echo $this->Form->control('phone');
                     echo $this->Form->control('email');

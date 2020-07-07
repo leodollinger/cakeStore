@@ -71,10 +71,10 @@ class UsersTable extends Table
             ->notEmptyString('name');
 
         $validator
-            ->scalar('user_name')
-            ->maxLength('user_name', 30)
-            ->requirePresence('user_name', 'create')
-            ->notEmptyString('user_name');
+            ->scalar('username')
+            ->maxLength('username', 30)
+            ->requirePresence('username', 'create')
+            ->notEmptyString('username');
 
         $validator
             ->scalar('password')

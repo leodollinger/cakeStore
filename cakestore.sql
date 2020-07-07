@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) NOT NULL,
-  `user_name` varchar(30) NOT NULL,
+  `username` varchar(30) NOT NULL,
   `password` varchar(100) NOT NULL,
   `phone` varchar(11) NOT NULL,
   `email` varchar(80) NOT NULL,

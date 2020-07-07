@@ -13,7 +13,7 @@
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('name') ?></th>
-                    <th><?= $this->Paginator->sort('user_name') ?></th>
+                    <th><?= $this->Paginator->sort('username') ?></th>
                     <th><?= $this->Paginator->sort('password') ?></th>
                     <th><?= $this->Paginator->sort('phone') ?></th>
                     <th><?= $this->Paginator->sort('email') ?></th>
@@ -28,7 +28,7 @@
                 <tr>
                     <td><?= $this->Number->format($user->id) ?></td>
                     <td><?= h($user->name) ?></td>
-                    <td><?= h($user->user_name) ?></td>
+                    <td><?= h($user->username) ?></td>
                     <td><?= h($user->password) ?></td>
                     <td><?= h($user->phone) ?></td>
                     <td><?= h($user->email) ?></td>

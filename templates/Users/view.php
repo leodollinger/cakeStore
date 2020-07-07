@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <th><?= __('User Name') ?></th>
-                    <td><?= h($user->user_name) ?></td>
+                    <td><?= h($user->username) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Password') ?></th>

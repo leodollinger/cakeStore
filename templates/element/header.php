@@ -12,4 +12,3 @@
   </div>
 </nav>
 <main class="main">
-	<div class="container">
