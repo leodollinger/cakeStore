@@ -1,3 +1,3 @@
-    </main>
-    <footer>
-    </footer>
+</main>
+<footer>
+</footer>

@@ -19,28 +19,34 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <!DOCTYPE html>
 <html>
 <head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
+	<?= $this->Html->charset() ?>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		<?= $cakeDescription ?>:
+		<?= $this->fetch('title') ?>
+	</title>
+	<?= $this->Html->meta('icon') ?>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+	<link href="fontawesome-free/css/all.min.css" rel="stylesheet">
+	<link href="overlayScrollbars/css/OverlayScrollbars.min.css" rel="stylesheet" >
+	<link href="css/adminlte.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-    <?= $this->Html->css(['bootstrap.min']) ?>
+	<?= $this->Html->css(['bootstrap.min']) ?>
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+	<?= $this->fetch('meta') ?>
+	<?= $this->fetch('css') ?>
+	<?= $this->fetch('script') ?>
 </head>
 <body>
-    <?= $this->element('header') ?>
-        <?= $this->Flash->render() ?>
-        <?= $this->fetch('content') ?>
-        <?= $this->Html->script(['bootstrap.min', 'jquery-3.5.1.min']) ?>
-        <?= $this->fetch('script') ?>        
-    <?= $this->element('footer') ?>
+		<?= $this->element('header') ?>
+		<?= $this->Flash->render() ?>
+		<?= $this->fetch('content') ?>
+		<?= $this->Html->script(['bootstrap.min', 'jquery-3.5.1.min']) ?>
+		<?= $this->fetch('script') ?>        
+	<?= $this->element('footer') ?>
 </body>
 </html>
+
+
