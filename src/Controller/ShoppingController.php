@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Event\EventInterface;
 
 /**
  * Shopping Controller
@@ -11,6 +12,10 @@ namespace App\Controller;
  */
 class ShoppingController extends AppController
 {
+    public function beforeFilter(EventInterface $event){
+      parent::beforeFilter($event);
+      $this->Auth->allow(['addCart']);
+    }
     /**
      * Index method
      *
@@ -18,6 +23,9 @@ class ShoppingController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $this->paginate = [
             'contain' => ['Users', 'Products'],
         ];
@@ -35,6 +43,9 @@ class ShoppingController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $shopping = $this->Shopping->get($id, [
             'contain' => ['Users', 'Products'],
         ]);
@@ -49,6 +60,9 @@ class ShoppingController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $shopping = $this->Shopping->newEmptyEntity();
         if ($this->request->is('post')) {
             $shopping = $this->Shopping->patchEntity($shopping, $this->request->getData());
@@ -73,6 +87,9 @@ class ShoppingController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $shopping = $this->Shopping->get($id, [
             'contain' => [],
         ]);
@@ -99,6 +116,9 @@ class ShoppingController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $shopping = $this->Shopping->get($id);
         if ($this->Shopping->delete($shopping)) {
@@ -108,5 +128,18 @@ class ShoppingController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    public function addCart($id = null){
+        $sessionObj = $this->getRequest()->getSession();
+        $sessionObj->write('cart', null);die;
+        if(isset($sessionObj->read()['cart'])){
+            $cart = $sessionObj->read()['cart'];
+            array_push($cart, $id);
+        }
+        else{            
+            $cart = [$id];
+        }
+        var_dump($sessionObj->read());die;
+        // $session = $sessionObj->read();
     }
 }

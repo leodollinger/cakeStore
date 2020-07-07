@@ -18,6 +18,9 @@ class UsersController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -32,6 +35,9 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $user = $this->Users->get($id, [
             'contain' => ['Shopping'],
         ]);
@@ -46,6 +52,9 @@ class UsersController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -68,6 +77,9 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
@@ -92,6 +104,9 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
@@ -108,7 +123,12 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if($user){
                 $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+                if($user['type'] == 0){
+                    return $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+                }
+                else{
+                    return $this->redirect(['controller' => 'Pages', 'action' => 'home']);
+                }
             }
         }
     }

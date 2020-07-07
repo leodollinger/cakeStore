@@ -32,7 +32,6 @@ use Cake\Event\EventInterface;
  */
 class PagesController extends AppController
 {
-
   public function beforeFilter(EventInterface $event){
     parent::beforeFilter($event);
     $this->Auth->allow(['index']);
@@ -78,6 +77,8 @@ class PagesController extends AppController
 	}
 
 	public function home(){
-		
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }		
 	}
 }

@@ -5,9 +5,25 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 		<div class="navbar-nav">
-			<?=$this->Html->link(__('Usuários'),['controller' => 'users', 'action' => 'index'],['class' => 'nav-item nav-link'])?>
-			<?=$this->Html->link(__('Produtos'),['controller' => 'products', 'action' => 'index'],['class' => 'nav-item nav-link'])?>
-			<?=$this->Html->link(__('Compras'),['controller' => 'shopping', 'action' => 'index'],['class' => 'nav-item nav-link'])?>
+	    <?= $this->Form->create(null,['type' => 'get', 'class'=>'form-inline my-2 my-lg-0', 'action' => '/products/search/']) ?>
+	      <?php
+	          echo $this->Form->control('Pesquisar',['class' => 'form-control mr-sm-2','placeholder' => 'produto', 'label' => false]);
+	      ?>
+	    <?= $this->Form->button(__('Pesquisar'), ['class'=>'btn btn-outline-info my-2 my-sm-0']) ?>
+	    <?= $this->Form->end() ?>
+			<?php 
+				if($userType !== false){
+					if($userType == 1){
+						echo $this->Html->link(__('Usuários'),['controller' => 'users', 'action' => 'index'],['class' => 'nav-item nav-link']);
+						echo $this->Html->link(__('Produtos'),['controller' => 'products', 'action' => 'index'],['class' => 'nav-item nav-link']);
+						echo $this->Html->link(__('Compras'),['controller' => 'shopping', 'action' => 'index'],['class' => 'nav-item nav-link']);
+					}
+					echo $this->Html->link(__('Logout'),['controller' => 'users', 'action' => 'logout'],['class' => 'nav-item nav-link']);
+				}
+				else{
+					echo $this->Html->link(__('Login'),['controller' => 'users', 'action' => 'login'],['class' => 'nav-item nav-link']);					
+				}
+			?>
 		</div>
   </div>
 </nav>

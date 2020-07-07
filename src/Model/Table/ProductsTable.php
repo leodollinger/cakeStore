@@ -80,4 +80,10 @@ class ProductsTable extends Table
 
         return $validator;
     }
+
+    public function findByName($name){
+        $query = $this->find()
+                      ->where(['name like ' => '%'.$name.'%']);
+        return $query->all();
+    } 
 }

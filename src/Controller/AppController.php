@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Event\EventInterface;
+
 
 /**
  * Application Controller
@@ -44,7 +46,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
-            'loginRedirect' => ['controller' => 'pages', 'action' => 'index'],
+            'loginRedirect' => ['controller' => 'pages', 'action' => 'home'],
             'logout' => ['controller' => 'pages', 'action' => 'index']
         ]);
 
@@ -54,4 +56,13 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
+
+  public function beforeRender(EventInterface $event){
+    $userType = false;
+    if($this->Auth->user('id')){
+        $userType = $this->Auth->user('type');
+    }
+
+    $this->set(compact('userType'));
+  }
 }

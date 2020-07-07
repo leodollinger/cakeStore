@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Event\EventInterface;
 
 /**
  * Products Controller
@@ -11,6 +12,10 @@ namespace App\Controller;
  */
 class ProductsController extends AppController
 {
+    public function beforeFilter(EventInterface $event){
+      parent::beforeFilter($event);
+      $this->Auth->allow(['search']);
+    }
     /**
      * Index method
      *
@@ -18,6 +23,9 @@ class ProductsController extends AppController
      */
     public function index()
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $products = $this->paginate($this->Products);
 
         $this->set(compact('products'));
@@ -32,6 +40,9 @@ class ProductsController extends AppController
      */
     public function view($id = null)
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $product = $this->Products->get($id, [
             'contain' => ['Shopping'],
         ]);
@@ -46,6 +57,9 @@ class ProductsController extends AppController
      */
     public function add()
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $product = $this->Products->newEmptyEntity();
         if ($this->request->is('post')) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
@@ -68,6 +82,9 @@ class ProductsController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $product = $this->Products->get($id, [
             'contain' => [],
         ]);
@@ -92,6 +109,9 @@ class ProductsController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->Auth->user('type') != 1){
+          $this->redirect(['controller' => 'pages']);
+        }
         $this->request->allowMethod(['post', 'delete']);
         $product = $this->Products->get($id);
         if ($this->Products->delete($product)) {
@@ -101,5 +121,18 @@ class ProductsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function search($name = null)
+    {
+        $product = $this->request->getAttribute('params')['?']['Pesquisar'];
+        $this->paginate = [
+            'limit' => 10,
+            'conditions' => ['Products.name like ' => '%'.$product.'%']
+        ];
+        // $products = $this->Products->findByName($product);
+        $products = $this->paginate($this->Products);
+
+        $this->set(compact('products'));
     }
 }
