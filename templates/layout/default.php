@@ -28,6 +28,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->meta('icon') ?>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <link href="fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="overlayScrollbars/css/OverlayScrollbars.min.css" rel="stylesheet" >
+    <link href="css/adminlte.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
     <?= $this->Html->css(['bootstrap.min']) ?>
 
