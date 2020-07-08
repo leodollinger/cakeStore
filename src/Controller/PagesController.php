@@ -22,6 +22,7 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\Event\EventInterface;
+use Cake\ORM\TableRegistry;
 
 /**
  * Static content controller
@@ -30,24 +31,23 @@ use Cake\Event\EventInterface;
  *
  * @link https://book.cakephp.org/4/en/controllers/pages-controller.html
  */
-class PagesController extends AppController
-{
-  public function beforeFilter(EventInterface $event){
-    parent::beforeFilter($event);
-    $this->Auth->allow(['index']);
-  }
-    /**
-     * Displays a view
-     *
-     * @param string ...$path Path segments.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Http\Exception\ForbiddenException When a directory traversal attempt.
-     * @throws \Cake\View\Exception\MissingTemplateException When the view file could not
-     *   be found and in debug mode.
-     * @throws \Cake\Http\Exception\NotFoundException When the view file could not
-     *   be found and not in debug mode.
-     * @throws \Cake\View\Exception\MissingTemplateException In debug mode.
-     */
+class PagesController extends AppController{
+	public function beforeFilter(EventInterface $event){
+		parent::beforeFilter($event);
+		$this->Auth->allow(['index']);
+	}
+		/**
+		 * Displays a view
+		 *
+		 * @param string ...$path Path segments.
+		 * @return \Cake\Http\Response|null
+		 * @throws \Cake\Http\Exception\ForbiddenException When a directory traversal attempt.
+		 * @throws \Cake\View\Exception\MissingTemplateException When the view file could not
+		 *   be found and in debug mode.
+		 * @throws \Cake\Http\Exception\NotFoundException When the view file could not
+		 *   be found and not in debug mode.
+		 * @throws \Cake\View\Exception\MissingTemplateException In debug mode.
+		 */
 	public function display(string ...$path): ?Response{
 		if(!$path){
 			return $this->redirect('/');
@@ -74,11 +74,17 @@ class PagesController extends AppController
 	}
 
 	public function index(){
+		$productsTable = TableRegistry::get('Products');
+		$products = $productsTable->find();
+		// foreach ($products as $product) {
+		// 	var_dump($product);
+		// }die;
+		$this->set(compact('products'));
 	}
 
 	public function home(){
-        if($this->Auth->user('type') != 1){
-          $this->redirect(['controller' => 'pages']);
-        }		
+		if($this->Auth->user('type') != 1){
+			$this->redirect(['controller' => 'pages']);
+		}		
 	}
 }
