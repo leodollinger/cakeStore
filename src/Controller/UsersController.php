@@ -154,7 +154,7 @@ class UsersController extends AppController
                 $user = $this->Users->patchEntity($user, $this->request->getData());
                 if ($this->Users->save($user)) {
                     $this->Flash->success(__('Usuário criado com sucesso.'));
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['controller' => 'pages', 'action' => 'index']);
                 }
                 $this->Flash->error(__('Usuário não foi criado. Favor, tente novamente.'));                
             }
