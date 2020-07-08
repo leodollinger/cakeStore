@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 /*senha do adm = 'adm123'*/
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `phone`, `email`, `type`, `created`, `modified`) VALUES
-(1, 'adm', 'adm', '$2y$10$RlsOrMj4n1R5eRXiMQ/ZE.6YSrLY5Vi4OJaNxNm7yW8KmBxUwyIRK', '31111111111', 'teste@email.com', 1, '2020-07-08 16:18:12', '2020-07-08 16:18:12');
+(1, 'adm', 'adm', '$2y$10$RlsOrMj4n1R5eRXiMQ/ZE.6YSrLY5Vi4OJaNxNm7yW8KmBxUwyIRK', '31111111111', 'adm@email.com', 1, '2020-07-08 16:18:12', '2020-07-08 16:18:12');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
