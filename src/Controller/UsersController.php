@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Event\EventInterface;
 
 /**
  * Users Controller
@@ -11,6 +12,10 @@ namespace App\Controller;
  */
 class UsersController extends AppController
 {
+    public function beforeFilter(EventInterface $event){
+      parent::beforeFilter($event);
+      $this->Auth->allow(['register']);
+    }
     /**
      * Index method
      *
@@ -138,5 +143,20 @@ class UsersController extends AppController
         $sessionObj = $this->getRequest()->getSession();
         $sessionObj->destroy();
         return $this->redirect($this->Auth->logout());
+    }
+
+    public function register()
+    {        
+        $user = $this->Users->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $this->set(compact('user'));
     }
 }

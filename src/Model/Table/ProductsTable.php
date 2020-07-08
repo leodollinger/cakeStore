@@ -85,5 +85,19 @@ class ProductsTable extends Table
         $query = $this->find()
                       ->where(['name like ' => '%'.$name.'%']);
         return $query->all();
-    } 
+    }
+
+    public function findProducts($cart){
+        if(sizeof($cart) > 0){
+            $query = $this->find();
+            $orQuery = [];
+            foreach ($cart as $key => $quantity) {
+                array_push($orQuery, ['id = ' => $key]);
+            }
+            $query->where(['OR' => $orQuery]);
+            return $query->all();
+        }
+        else
+            return [];
+    }
 }
