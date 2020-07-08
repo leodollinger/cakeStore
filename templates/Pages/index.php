@@ -21,7 +21,7 @@
         </p>
         <div class="text-center">
           <div class="form-group">
-            <?= $this->Form->postButton('Comprar', ['controller' => 'Shopping', 'action' => 'addCart', $product->id]) ?>
+            <?= $this->Form->postButton('Comprar', ['controller' => 'Shopping', 'action' => 'addCart', $product->id], ['class' => 'btn btn-primary', 'id' => 'botao']) ?>
           </div>
         </div>
       </div>
