@@ -156,8 +156,8 @@ class ShoppingController extends AppController
 			$products = $productsTable->findProducts($cart);
 		}
 		else{
-			$products = null;
-			$cart = null;
+			$products = [];
+			$cart = [];
 		}
 		$this->set(compact('cart', 'products'));
 	}
@@ -166,22 +166,19 @@ class ShoppingController extends AppController
 	{
 		$sessionObj = $this->getRequest()->getSession();
 		if(isset($sessionObj->read()['cart'])){
-			$success = 0;
 			$cart = $sessionObj->read()['cart'];
-			$shoppingEpt = $this->Shopping->newEmptyEntity();
-			foreach ($cart as $key => $quantity) {
-				$insert = ['user_id' => $this->Auth->user('id'), 'product_id' => $key, 'quantity' => $quantity];
-				$shopping = $this->Shopping->patchEntity($shoppingEpt, $insert);
-				if ($this->Shopping->save($shopping)) {
-					unset($cart[$key]);
-					$success++;
-				}
-				else{
-					$this->Flash->error(__('Não foi possivel realizar a compra de um item, favor, checar no carrinho de compras'));					
-				}
+			$shoppingEpt = $this->getTableLocator()->get('Shopping');
+			$insert = [];
+			foreach ($cart as $item => $quantity) {
+				array_push($insert, ['user_id' => $this->Auth->user('id'), 'product_id' => $item, 'quantity' => $quantity]);
 			}	
-			$this->Flash->success(__($success . ' Itens foram comprados com sucesso'));
-			$sessionObj->write('cart', $cart);	
+			$entities = $shoppingEpt->newEntities($insert);
+			if($shoppingEpt->saveMany($entities)){
+				$this->Flash->success(__('Compras realizadas com sucesso.'));
+				$sessionObj->write('cart', null);	
+			} else {
+				$this->Flash->error(__('Falha ao inserir uma das compras.'));
+			}
 		}
 		return $this->redirect($this->referer());
 	}
