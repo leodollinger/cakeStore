@@ -42,13 +42,13 @@
 								 </div>
 							 </div>';
 						echo '<div class="form-group row">
-								 <label for="phone" class="col-lg-4 col-form-label" align="right">Senha</label>
+								 <label for="phone" class="col-lg-4 col-form-label" align="right">Telefone</label>
 								 <div class="col-lg-8">
 								 '.$this->Form->control('phone', ['class'=> 'form-control phone', 'placeholder' => 'Telefone', 'label' => false]).'
 								 </div>
 							 </div>';
 						echo '<div class="form-group row">
-								 <label for="email" class="col-lg-4 col-form-label" align="right">Senha</label>
+								 <label for="email" class="col-lg-4 col-form-label" align="right">E-mail</label>
 								 <div class="col-lg-8">
 								 '.$this->Form->control('email', ['class'=> 'form-control email', 'placeholder' => 'E-mail', 'label' => false]).'
 								 </div>
