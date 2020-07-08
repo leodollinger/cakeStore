@@ -12,9 +12,9 @@
 				<fieldset>
 					<?php
 						echo '<div class="form-group row">
-										<label for="username" class="col-lg-2 col-form-label" align="right">E-mail</label>
+										<label for="username" class="col-lg-2 col-form-label" align="right">Nome de Usuário</label>
 										<div class="col-lg-5">
-										'.$this->Form->control('username', ['class'=> 'form-control username', 'placeholder' => 'digite o seu E-mail', 'label' => false]).'
+										'.$this->Form->control('username', ['class'=> 'form-control username', 'placeholder' => 'digite o seu Nome de Uruário', 'label' => false]).'
 										</div>
 									</div>';
 							
