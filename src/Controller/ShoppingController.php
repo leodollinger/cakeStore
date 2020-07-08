@@ -11,8 +11,7 @@ use Cake\ORM\TableRegistry;
  * @property \App\Model\Table\ShoppingTable $Shopping
  * @method \App\Model\Entity\Shopping[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class ShoppingController extends AppController
-{
+class ShoppingController extends AppController{
 	public function beforeFilter(EventInterface $event){
 	  parent::beforeFilter($event);
 	  $this->Auth->allow(['addCart', 'showCart']);
@@ -22,8 +21,7 @@ class ShoppingController extends AppController
 	 *
 	 * @return \Cake\Http\Response|null|void Renders view
 	 */
-	public function index()
-	{
+	public function index(){
 		if($this->Auth->user('type') != 1){
 		  $this->redirect(['controller' => 'pages']);
 		}
@@ -42,8 +40,7 @@ class ShoppingController extends AppController
 	 * @return \Cake\Http\Response|null|void Renders view
 	 * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
 	 */
-	public function view($id = null)
-	{
+	public function view($id = null){
 		if($this->Auth->user('type') != 1){
 		  $this->redirect(['controller' => 'pages']);
 		}
@@ -59,8 +56,7 @@ class ShoppingController extends AppController
 	 *
 	 * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
 	 */
-	public function add()
-	{
+	public function add(){
 		if($this->Auth->user('type') != 1){
 		  $this->redirect(['controller' => 'pages']);
 		}
@@ -69,7 +65,6 @@ class ShoppingController extends AppController
 			$shopping = $this->Shopping->patchEntity($shopping, $this->request->getData());
 			if ($this->Shopping->save($shopping)) {
 				$this->Flash->success(__('The shopping has been saved.'));
-
 				return $this->redirect(['action' => 'index']);
 			}
 			$this->Flash->error(__('The shopping could not be saved. Please, try again.'));
@@ -86,8 +81,7 @@ class ShoppingController extends AppController
 	 * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
 	 * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
 	 */
-	public function edit($id = null)
-	{
+	public function edit($id = null){
 		if($this->Auth->user('type') != 1){
 		  $this->redirect(['controller' => 'pages']);
 		}
@@ -115,8 +109,7 @@ class ShoppingController extends AppController
 	 * @return \Cake\Http\Response|null|void Redirects to index.
 	 * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
 	 */
-	public function delete($id = null)
-	{
+	public function delete($id = null){
 		if($this->Auth->user('type') != 1){
 		  $this->redirect(['controller' => 'pages']);
 		}
@@ -130,8 +123,8 @@ class ShoppingController extends AppController
 
 		return $this->redirect(['action' => 'index']);
 	}
-	public function addCart($id = null){
 
+	public function addCart($id = null){
 		$sessionObj = $this->getRequest()->getSession();
 		if(isset($sessionObj->read()['cart'])){
 			$cart = $sessionObj->read()['cart'];
@@ -148,6 +141,7 @@ class ShoppingController extends AppController
 		$sessionObj->write('cart', $cart);
 		return $this->redirect($this->referer());        
 	}
+
 	public function showCart($id = null){
 		$sessionObj = $this->getRequest()->getSession();
 		if(isset($sessionObj->read()['cart'])){
@@ -162,8 +156,7 @@ class ShoppingController extends AppController
 		$this->set(compact('cart', 'products'));
 	}
 
-	public function finishShopping()
-	{
+	public function finishShopping(){
 		$sessionObj = $this->getRequest()->getSession();
 		if(isset($sessionObj->read()['cart'])){
 			$cart = $sessionObj->read()['cart'];
@@ -171,11 +164,11 @@ class ShoppingController extends AppController
 			$insert = [];
 			foreach ($cart as $item => $quantity) {
 				array_push($insert, ['user_id' => $this->Auth->user('id'), 'product_id' => $item, 'quantity' => $quantity]);
-			}	
+			}   
 			$entities = $shoppingEpt->newEntities($insert);
 			if($shoppingEpt->saveMany($entities)){
 				$this->Flash->success(__('Compras realizadas com sucesso.'));
-				$sessionObj->write('cart', null);	
+				$sessionObj->write('cart', null);   
 			} else {
 				$this->Flash->error(__('Falha ao inserir uma das compras.'));
 			}

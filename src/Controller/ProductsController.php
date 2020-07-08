@@ -10,129 +10,122 @@ use Cake\Event\EventInterface;
  * @property \App\Model\Table\ProductsTable $Products
  * @method \App\Model\Entity\Product[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class ProductsController extends AppController
-{
-    public function beforeFilter(EventInterface $event){
-      parent::beforeFilter($event);
-      $this->Auth->allow(['search']);
-    }
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
-    public function index()
-    {
-        if($this->Auth->user('type') != 1){
-          $this->redirect(['controller' => 'pages']);
-        }
-        $products = $this->paginate($this->Products);
+class ProductsController extends AppController{
+	public function beforeFilter(EventInterface $event){
+		parent::beforeFilter($event);
+		$this->Auth->allow(['search']);
+	}
+	/**
+	 * Index method
+	 *
+	 * @return \Cake\Http\Response|null|void Renders view
+	 */
+	public function index(){
+		if($this->Auth->user('type') != 1){
+			$this->redirect(['controller' => 'pages']);
+		}
+		$products = $this->paginate($this->Products);
 
-        $this->set(compact('products'));
-    }
+		$this->set(compact('products'));
+	}
 
-    /**
-     * View method
-     *
-     * @param string|null $id Product id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        if($this->Auth->user('type') != 1){
-          $this->redirect(['controller' => 'pages']);
-        }
-        $product = $this->Products->get($id, [
-            'contain' => ['Shopping'],
-        ]);
+	/**
+	 * View method
+	 *
+	 * @param string|null $id Product id.
+	 * @return \Cake\Http\Response|null|void Renders view
+	 * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+	 */
+	public function view($id = null){
+		if($this->Auth->user('type') != 1){
+			$this->redirect(['controller' => 'pages']);
+		}
+		$product = $this->Products->get($id, [
+				'contain' => ['Shopping'],
+		]);
 
-        $this->set(compact('product'));
-    }
+		$this->set(compact('product'));
+	}
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        if($this->Auth->user('type') != 1){
-          $this->redirect(['controller' => 'pages']);
-        }
-        $product = $this->Products->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $product = $this->Products->patchEntity($product, $this->request->getData());
-            if ($this->Products->save($product)) {
-                $this->Flash->success(__('The product has been saved.'));
+	/**
+	 * Add method
+	 *
+	 * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+	 */
+	public function add(){
+		if($this->Auth->user('type') != 1){
+			$this->redirect(['controller' => 'pages']);
+		}
+		$product = $this->Products->newEmptyEntity();
+		if($this->request->is('post')) {
+			$product = $this->Products->patchEntity($product, $this->request->getData());
+			if($this->Products->save($product)) {
+				$this->Flash->success(__('The product has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The product could not be saved. Please, try again.'));
-        }
-        $this->set(compact('product'));
-    }
+				return $this->redirect(['action' => 'index']);
+			}
+			$this->Flash->error(__('The product could not be saved. Please, try again.'));
+		}
+		$this->set(compact('product'));
+	}
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Product id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        if($this->Auth->user('type') != 1){
-          $this->redirect(['controller' => 'pages']);
-        }
-        $product = $this->Products->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $product = $this->Products->patchEntity($product, $this->request->getData());
-            if ($this->Products->save($product)) {
-                $this->Flash->success(__('The product has been saved.'));
+	/**
+	 * Edit method
+	 *
+	 * @param string|null $id Product id.
+	 * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+	 * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+	 */
+	public function edit($id = null){
+		if($this->Auth->user('type') != 1){
+			$this->redirect(['controller' => 'pages']);
+		}
+		$product = $this->Products->get($id, [
+				'contain' => [],
+		]);
+		if($this->request->is(['patch', 'post', 'put'])) {
+			$product = $this->Products->patchEntity($product, $this->request->getData());
+			if ($this->Products->save($product)) {
+					$this->Flash->success(__('The product has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The product could not be saved. Please, try again.'));
-        }
-        $this->set(compact('product'));
-    }
+					return $this->redirect(['action' => 'index']);
+			}
+			$this->Flash->error(__('The product could not be saved. Please, try again.'));
+		}
+		$this->set(compact('product'));
+	}
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Product id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        if($this->Auth->user('type') != 1){
-          $this->redirect(['controller' => 'pages']);
-        }
-        $this->request->allowMethod(['post', 'delete']);
-        $product = $this->Products->get($id);
-        if ($this->Products->delete($product)) {
-            $this->Flash->success(__('The product has been deleted.'));
-        } else {
-            $this->Flash->error(__('The product could not be deleted. Please, try again.'));
-        }
+	/**
+	 * Delete method
+	 *
+	 * @param string|null $id Product id.
+	 * @return \Cake\Http\Response|null|void Redirects to index.
+	 * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+	 */
+	public function delete($id = null){
+		if($this->Auth->user('type') != 1){
+			$this->redirect(['controller' => 'pages']);
+		}
+		$this->request->allowMethod(['post', 'delete']);
+		$product = $this->Products->get($id);
+		if ($this->Products->delete($product)) {
+				$this->Flash->success(__('The product has been deleted.'));
+		} else {
+				$this->Flash->error(__('The product could not be deleted. Please, try again.'));
+		}
 
-        return $this->redirect(['action' => 'index']);
-    }
+		return $this->redirect(['action' => 'index']);
+	}
 
-    public function search($name = null)
-    {
-        $product = $this->request->getAttribute('params')['?']['Pesquisar'];
-        $this->paginate = [
-            'limit' => 10,
-            'conditions' => ['Products.name like ' => '%'.$product.'%']
-        ];
-        // $products = $this->Products->findByName($product);
-        $products = $this->paginate($this->Products);
+	public function search($name = null){
+		$product = $this->request->getAttribute('params')['?']['Pesquisar'];
+		$this->paginate = [
+				'limit' => 10,
+				'conditions' => ['Products.name like ' => '%'.$product.'%']
+		];
+		// $products = $this->Products->findByName($product);
+		$products = $this->paginate($this->Products);
 
-        $this->set(compact('products'));
-    }
+		$this->set(compact('products'));
+	}
 }
