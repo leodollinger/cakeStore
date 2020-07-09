@@ -2,6 +2,7 @@
   .card-columns {
     padding-top: 50px;
     padding-left: 500px;
+    padding-right: 500px;
   } 
   img{
     height: 100px;

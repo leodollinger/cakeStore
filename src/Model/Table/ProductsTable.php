@@ -29,75 +29,79 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class ProductsTable extends Table
-{
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
-    public function initialize(array $config): void
-    {
-        parent::initialize($config);
+class ProductsTable extends Table{
+	/**
+	 * Initialize method
+	 *
+	 * @param array $config The configuration for the Table.
+	 * @return void
+	 */
+	public function initialize(array $config): void{
+		parent::initialize($config);
 
-        $this->setTable('products');
-        $this->setDisplayField('name');
-        $this->setPrimaryKey('id');
+		$this->setTable('products');
+		$this->setDisplayField('name');
+		$this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
+		$this->addBehavior('Timestamp');
 
-        $this->hasMany('Shopping', [
-            'foreignKey' => 'product_id',
-        ]);
-    }
+		$this->hasMany('Shopping', [
+			'foreignKey' => 'product_id',
+		]);
+	}
 
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator): Validator
-    {
-        $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+	/**
+	 * Default validation rules.
+	 *
+	 * @param \Cake\Validation\Validator $validator Validator instance.
+	 * @return \Cake\Validation\Validator
+	 */
+	public function validationDefault(Validator $validator): Validator{
+		$validator
+			->integer('id')
+			->allowEmptyString('id', null, 'create');
 
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 50)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+		$validator
+			->scalar('name')
+			->maxLength('name', 50)
+			->requirePresence('name', 'create')
+			->notEmptyString('name');
 
-        $validator
-            ->decimal('price')
-            ->requirePresence('price', 'create')
-            ->notEmptyString('price');
+		$validator
+			->decimal('price')
+			->requirePresence('price', 'create')
+			->notEmptyString('price');
 
-        $validator
-            ->notEmptyString('type');
+		$validator
+			->notEmptyString('type');
 
-        return $validator;
-    }
+		return $validator;
+	}
 
-    public function findByName($name){
-        $query = $this->find()
-                      ->where(['name like ' => '%'.$name.'%']);
-        return $query->all();
-    }
+	public function findByName($name){
+		$query = $this->find()
+					  ->where(['name like ' => '%'.$name.'%']);
+		return $query->all();
+	}
 
-    public function findProducts($cart){
-        if(sizeof($cart) > 0){
-            $query = $this->find();
-            $orQuery = [];
-            foreach ($cart as $key => $quantity) {
-                array_push($orQuery, ['id = ' => $key]);
-            }
-            $query->where(['OR' => $orQuery]);
-            return $query->all();
-        }
-        else
-            return [];
-    }
+	public function findProducts($cart){
+		if(sizeof($cart) > 0){
+			$query = $this->find();
+			$orQuery = [];
+			foreach ($cart as $key => $quantity) {
+				array_push($orQuery, ['id = ' => $key]);
+			}
+			$query->where(['OR' => $orQuery]);
+			return $query->all();
+		}
+		else
+			return [];
+	}
+
+	public function newsProducts(){
+		$query = $this->find('all')
+			->order(['id' => 'DESC'])
+			->limit('4');
+		return $query->all();
+	}
 }

@@ -75,16 +75,25 @@ class PagesController extends AppController{
 
 	public function index(){
 		$productsTable = TableRegistry::get('Products');
+
 		$products = $productsTable->find();
-		// foreach ($products as $product) {
-		// 	var_dump($product);
-		// }die;
 		$this->set(compact('products'));
 	}
 
 	public function home(){
+		$userTable = TableRegistry::get('Users');
+		$productsTable = TableRegistry::get('Products');
+		$shoppingTable = TableRegistry::get('Shopping');
+
 		if($this->Auth->user('type') != 1){
 			$this->redirect(['controller' => 'pages']);
-		}		
+		}
+    $user = $userTable->get($this->Auth->user('id'), [
+      'contain' => [],
+    ]);
+    $newsProducts = $productsTable->newsProducts();
+    $lastersOrders = $shoppingTable->lastersOrders();
+
+    $this->set(compact(['user', 'newsProducts', 'lastersOrders']));	
 	}
 }
