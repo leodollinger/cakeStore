@@ -12,8 +12,7 @@
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
+                Produtos
               </p>
             </a>
           </li>
@@ -21,84 +20,17 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Layout Options
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+               Usuários
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation + Sidebar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Boxed</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Sidebar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Navbar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-footer.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Footer</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Collapsed Sidebar</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Charts
-                <i class="right fas fa-angle-left"></i>
+                Compras
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-            </ul>
           </li>
         </ul>
       </nav>
@@ -111,12 +43,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">CakeStore Panel</h1>
+            <h1 class="m-0 text-dark">CakeStore Painel</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">CakeStore Panel</li>
+              <li class="breadcrumb-item active">CakeStore Painel</li>
             </ol>
           </div>
         </div>
@@ -132,7 +64,7 @@
               <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">CPU Traffic</span>
+                <span class="info-box-text">Sobrecarga do sistema</span>
                 <span class="info-box-number">
                   10
                   <small>%</small>
@@ -144,7 +76,7 @@
             <div class="info-box mb-3">
               <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Likes</span>
+                <span class="info-box-text">Curtidas na Página</span>
                 <span class="info-box-number">41,410</span>
               </div>
             </div>
@@ -155,7 +87,7 @@
             <div class="info-box mb-3">
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Sales</span>
+                <span class="info-box-text">Vendas</span>
                 <span class="info-box-number">760</span>
               </div>
             </div>
@@ -164,7 +96,7 @@
             <div class="info-box mb-3">
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">New Members</span>
+                <span class="info-box-text">Novos Usuários</span>
                 <span class="info-box-number">2,000</span>
               </div>
             </div>
@@ -179,18 +111,6 @@
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
                   </button>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                      <i class="fas fa-wrench"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" role="menu">
-                      <a href="#" class="dropdown-item">Action</a>
-                      <a href="#" class="dropdown-item">Another action</a>
-                      <a href="#" class="dropdown-item">Something else here</a>
-                      <a class="dropdown-divider"></a>
-                      <a href="#" class="dropdown-item">Separated link</a>
-                    </div>
-                  </div>
                   <button type="button" class="btn btn-tool" data-card-widget="remove">
                     <i class="fas fa-times"></i>
                   </button>
@@ -319,9 +239,6 @@
                     <div class="product-info">
                       <a href="javascript:void(0)" class="product-title"><?php echo $newProduct->name; ?>
                         <span class="badge badge-success float-right">R$ <?php echo $newProduct->price; ?></span></a>
-                      <span class="product-description">
-                        Samsung 32" 1080p 60Hz LED Smart HDTV.
-                      </span>
                     </div>
                   </li>
                   <?php }?>                  
